@@ -6,9 +6,13 @@ from todos import views
 urlpatterns = [
 
 	path('', views.ListTodo.as_view()),
-	 # url(r'^api/todos', views.home),
-    
-    path('<int:pk>/', views.DetailTodo.as_view()),
+
+	re_path(r'^(?P<pk>[0-9])/$', views.DetailTodo.as_view()),
+
+	re_path(r'^likes/$', views.ListLike.as_view()),
+    re_path(r'^likes/(?P<pk>[0-9])/$', views.DetailLike.as_view()),
+
+    re_path(r'^register/$', views.CreateUserView.as_view()),
 
 
 ]

@@ -10,3 +10,10 @@ class Todo(models.Model):
 
 	def __str__(self):
 		return self.title
+
+class Like(models.Model):
+	user = models.ManyToManyField(User)
+	todo = models.OneToOneField(Todo, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return str(self.id) + '-' + str(self.todo)
