@@ -3,8 +3,6 @@ from django.core.management import execute_from_command_line
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "main.settings")
 
-print('make sure you fork this before running')
-
 print('type `manage.py help` for help, or hit enter to start server')
 
 while True:

@@ -11,53 +11,38 @@ from rest_framework.views import APIView
 
 
 
-from .models import Todo, Like
-from .serializers import TodoSerializer, LikeSerializer, UserSerializer
+from .models import Todo, Lesson
+from .serializers import TodoSerializer, LessonSerializer
+
+from users.serializers import UserSerializer
+from users.models import CustomUser as User
 
 
 def home(request):
     return render(request, 'main/index.html')
 
+# Lessons
+class ListLesson(generics.ListCreateAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+
+class DetailLesson(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
 
 # To dos
 class ListTodo(generics.ListCreateAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
 
-    def perform_create(self, serializer):
-	    serializer.save(owner=self.request.owner)
-
-
 class DetailTodo(generics.RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
 
-
-# Likes 
-class ListLike(generics.ListCreateAPIView):
-	queryset = Like.objects.all()
-	serializer_class = LikeSerializer
-
-class DetailLike(generics.RetrieveUpdateDestroyAPIView):
-	queryset = Like.objects.all()
-	serializer_class = LikeSerializer	
-
-
-
-# Users
-class UserList(generics.ListAPIView):
+class ListUser(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
-class UserDetail(generics.RetrieveAPIView):
+class DetailUser(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
-class CreateUserView(generics.CreateAPIView):
-	model = User
-	permission_classes = [ 
-		permissions.AllowAny
-	]
-	serializer_class = UserSerializer
